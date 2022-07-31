@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+    "id": 1,
+    "description": "first post",
+    "imageUrl": "https://picsum.photos/id/369/400/400"
+    },
+    {
+  "id": 2,
+  "description": "second post",
+  "imageUrl": "https://picsum.photos/id/369/400/400"
+    },
+    {
+      "id": 3,
+      "description": "third post",
+      "imageUrl": "https://picsum.photos/id/369/400/400"
+    }
+  ]
+}
