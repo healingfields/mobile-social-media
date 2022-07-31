@@ -1,7 +1,7 @@
-import {Constants} from "expo-constants";
 import {createContext, useReducer} from "react";
+import Constants from "expo-constants";
 
-const {apiUrl} = Constants.manifest.extra;
+const apiUrl = Constants.manifest.extra;
 
 export const UserContext = createContext();
 
@@ -54,7 +54,7 @@ export const UserContextProvider = ({children})=>{
                 }
             );
             const result = await data.json();
-            
+
             if(result){
                 dispatch({type:'SET_USER_TOKEN', payload:result.token})
             }
@@ -68,9 +68,9 @@ export const UserContextProvider = ({children})=>{
     }
 
     return(
-        <UserContextProvider value={{...state, login, logout}}>
+        <UserContext.Provider value={{...state, login, logout}}>
             {children}
-        </UserContextProvider>
+        </UserContext.Provider>
     )
 };
 
