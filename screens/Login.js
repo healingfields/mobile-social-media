@@ -35,19 +35,19 @@ export default function Login(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('')
 
-    const {error, login} = useContext(UserContext);
+    const {error, user, login} = useContext(UserContext);
 
     return(
         <View style={styles.container}>
-            {error? <Text style={styles.message}>Something went worng</Text>: null}
+            {error? <Text style={styles.message}>{error}</Text>: null}
             <FormInput
-                onChangetext = {setUsername}
+                onChange = {setUsername}
                 value = {username}
                 placeholder = 'Your Username'
                 textContentType = 'username'
             />
             <FormInput
-                onChangetext = {setPassword}
+                onChange = {setPassword}
                 value = {password}
                 placeholder = 'Your password'
                 textContentType = 'password'
@@ -58,6 +58,7 @@ export default function Login(){
                     <Text style={styles.buttonText}>Login</Text>
                 </View>
             </TouchableOpacity>
+            {user?<Text>{user.token}</Text>:null}
 
 
         </View>
