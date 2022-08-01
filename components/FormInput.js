@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         justifyContent:"space-around",
         borderRadius:5,
         borderWidth:1,
-        borderColor:"black",
+        borderColor:"gray",
         backgroundColor:"white",
         fontSize:20,
         marginBottom:20,

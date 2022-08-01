@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 import UserContext from "../context/UserContext";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import FormInput from "../components/FormInput";
+import LottieView from "lottie-react-native";
 
 const styles = StyleSheet.create({
     container:{
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         display:"flex",
         alignItems:"center",
-        justifyContent:"center",
+        justifyContent:"flex-start",
     },
     message:{
         fontSize:20,
@@ -21,13 +22,18 @@ const styles = StyleSheet.create({
     button:{
         width:200,
         borderRadius:5,
-        backgroundColor:'blue',
-        padding:15
+        backgroundColor:'#76BA99',
+        padding:15,
+        marginTop:10
     },
     buttonText:{
         fontSize:20,
-        color:'white',
+        color:'gray',
         textAlign:"center"
+    },
+    avatar:{
+        height:200,
+        width:200
     }
 
 })
@@ -41,6 +47,7 @@ export default function Login(){
     return(
         <View style={styles.container}>
             {error? <Text style={styles.message}>{error}</Text>: null}
+            <LottieView autoPlay loop source={require('../assets/welcome.json')} style={styles.avatar}/>
             <FormInput
                 onChange = {setUsername}
                 value = {username}
