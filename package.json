@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.11",
+    "@react-navigation/native-stack": "^6.7.0",
     "bcryptjs": "^2.4.3",
     "expo": "~45.0.0",
     "expo-constants": "~13.1.1",
