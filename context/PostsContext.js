@@ -74,9 +74,10 @@ export const PostsContextProvider = ({children}) =>{
     async function fetchPost(postId){
         try{
             const data = await fetch(
-                `${apiUrl}/api/posts/${postId}/`
+                `${apiUrl}/api/posts/${postId}`
             );
             const result = await data.json();
+            console.log(result)
 
             if(result){
                 dispatch({type:'GET_POST_SUCCESS', payload:result});
@@ -119,4 +120,4 @@ export const PostsContextProvider = ({children}) =>{
         </PostsContext.Provider>
     );
 };
-
+export default PostsContext;

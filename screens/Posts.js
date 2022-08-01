@@ -2,6 +2,7 @@ import {ScrollView, StyleSheet, Text, TouchableOpacity} from "react-native";
 import {useContext, useEffect} from "react";
 import {PostsContext} from "../context/PostsContext";
 import PostItem from "../components/PostItem";
+import {useNavigation} from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container:{
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 })
 export default function Posts(){
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
 
     const {loading, error, posts, fetchPosts} = useContext(PostsContext);
 
@@ -34,6 +35,9 @@ export default function Posts(){
                     posts.map((post)=>(
                         <TouchableOpacity
                             key={post.id}
+                            onPress={()=>{
+                                navigation.navigate('PostDetail', {postId:post.id})
+                            }}
                         >
                                 <PostItem key={post.id} data={post}/>
                         </TouchableOpacity>
