@@ -7,10 +7,11 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         width:'100%',
+        paddingHorizontal:'10%',
         backgroundColor:'white',
         display:"flex",
         alignItems:"center",
-        paddingVertical:20,
+        justifyContent:"center",
     },
     message:{
         fontSize:20,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
         marginBottom:20
     },
     button:{
-        width:250,
+        width:200,
         borderRadius:5,
         backgroundColor:'blue',
         padding:15
@@ -59,8 +60,6 @@ export default function Login(){
                 </View>
             </TouchableOpacity>
             {user?<Text>{user.token}</Text>:null}
-
-
         </View>
     )
 }
