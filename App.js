@@ -12,6 +12,7 @@ import {FontAwesome} from '@expo/vector-icons';
 import {useContext, useEffect} from "react";
 import UserContext from "./context/UserContext";
 import {navigationRef} from "./routing";
+import {ActionSheetProvider} from "@expo/react-native-action-sheet";
 
 
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const Tab = createBottomTabNavigator();
 
 function Home(){
     return(
+        <ActionSheetProvider>
         <Tab.Navigator
             screenOptions={({route})=>({
                 tabBarActiveTintColor: 'blue',
@@ -51,6 +53,7 @@ function Home(){
                     tabBarLabel : 'Add Post'}}
             />
         </Tab.Navigator>
+        </ActionSheetProvider>
     )
 }
 
@@ -64,7 +67,7 @@ function Navigator(){
 
     return(
         <NavigationContainer ref={navigationRef}>
-            <StatusBar style='auto'/>
+            <StatusBar style='inverted'/>
             <Stack.Navigator initialRouteName={
                 user.token.length? 'Home' : 'Login'
             }>
