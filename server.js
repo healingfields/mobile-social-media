@@ -7,7 +7,7 @@ const middlewares = jsonServer.defaults();
 
 const user = {
     username:'test',
-    password:'$2a$12$R6vjy0o4lI1KQzc9myYBA.a3SYiZlpZFba.TruNfkyZLvNOy4dXvu'
+    password:'$2b$10$5dwsS5snIRlKu8ka5r7z0eoRyQVAsOtAZHkPJuSx.agOWjchXhSum'
 };
 
 const jwtSecret = '34%%##@#FGFKFL'

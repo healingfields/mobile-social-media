@@ -3,6 +3,7 @@ import UserContext from "../context/UserContext";
 import Button from "../components/Button";
 import {StyleSheet, View} from "react-native";
 import LottieView from "lottie-react-native";
+import {navigationRef} from "../routing";
 
 const styles = StyleSheet.create({
     container:{
@@ -33,7 +34,13 @@ const Profile = () => {
                         source={require('../assets/avatar.json')}
                         style={styles.avatar}/>
             <Button
-                onPress={()=>logout()}
+                onPress={()=>{
+                    logout();
+                    navigationRef.current.reset({
+                        index:0,
+                        routes:[{name:'Login'}],
+                    })
+                }}
                 label='Logout'
                 color='orange'
             />

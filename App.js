@@ -9,6 +9,9 @@ import Profile from "./screens/Profile";
 import PostForm from "./screens/PostForm";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {FontAwesome} from '@expo/vector-icons';
+import {useContext, useEffect} from "react";
+import UserContext from "./context/UserContext";
+import {navigationRef} from "./routing";
 
 
 const Stack = createNativeStackNavigator();
@@ -51,45 +54,51 @@ function Home(){
     )
 }
 
+function Navigator(){
+
+    const {user, getToken} = useContext(UserContext);
+
+    useEffect(()=>{
+        getToken();
+    },[])
+
+    return(
+        <NavigationContainer ref={navigationRef}>
+            <StatusBar style='auto'/>
+            <Stack.Navigator initialRouteName={
+                user.token.length? 'Home' : 'Login'
+            }>
+                <Stack.Screen
+                    name='Home'
+                    component={Home}
+                    options={({route})=>({
+                        headerTitle:getFocusedRouteNameFromRoute(route),
+                    })}
+                    />
+                <Stack.Screen
+                    name='Login'
+                    component={Login}
+                    options={{
+                        headerStyle:{
+                            backgroundColor:'lightgrey',
+                        },
+                        headerTintColor:'gray',
+                        headerTitleStyle:{
+                            fontWeight:'bold',
+                            color:'#76BA99'
+                        }
+                    }}
+                />
+                <Stack.Screen name='PostDetail' component={PostDetail}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}
+
 export default function App() {
   return (
-      //
-      //   {/*<Login/>*/}
-      //   <PostItem data={{imageUrl:"https://images.unsplash.com/photo-1659269661337-7ee76a7645b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-      //                   description:"akfjkjf"}} />
-      //
       <AppContext>
-            <NavigationContainer>
-                <StatusBar style='inverted'/>
-                <Stack.Navigator initialRouteName='Home'>
-                    {/*<Stack.Screen name='Posts' component={Posts}/>*/}
-                    <Stack.Screen name='PostDetail' component={PostDetail}/>
-                    {/*<Stack.Screen name='Profile' component={Profile} />*/}
-                    <Stack.Screen
-                        name='Login'
-                        component={Login}
-                        options={{
-                            headerStyle:{
-                                backgroundColor:'lightgrey',
-                            },
-                            headerTintColor:'gray',
-                            headerTitleStyle:{
-                                fontWeight:'bold',
-                                color:'#76BA99'
-                            }
-                        }}
-                    />
-                    {/*<Stack.Screen name='PostForm' component={PostForm}/>*/}
-                    <Stack.Screen
-                        name='Home'
-                        component={Home}
-                        options={({route})=>({
-                            headerTitle:
-                            getFocusedRouteNameFromRoute(route)
-                        })}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <Navigator/>
       </AppContext>
 
   );

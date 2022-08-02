@@ -1,8 +1,9 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import UserContext from "../context/UserContext";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import FormInput from "../components/FormInput";
 import LottieView from "lottie-react-native";
+import {useNavigation} from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container:{
@@ -43,6 +44,13 @@ export default function Login(){
     const [password, setPassword] = useState('')
 
     const {error, user, login} = useContext(UserContext);
+    const navigation = useNavigation();
+
+    useEffect(()=>{
+        if(user.token){
+            navigation.navigate('Home');
+        }
+    }, [user.token])
 
     return(
         <View style={styles.container}>
@@ -66,7 +74,6 @@ export default function Login(){
                     <Text style={styles.buttonText}>Login</Text>
                 </View>
             </TouchableOpacity>
-            {user?<Text>{user.token}</Text>:null}
         </View>
     )
 }
