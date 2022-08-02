@@ -2,13 +2,56 @@ import { StatusBar } from 'expo-status-bar';
 import Login from "./screens/Login";
 import Posts from "./screens/Posts";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, getFocusedRouteNameFromRoute} from "@react-navigation/native";
 import PostDetail from "./screens/PostDetail";
 import AppContext from "./context/AppContext";
+import Profile from "./screens/Profile";
+import PostForm from "./screens/PostForm";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {FontAwesome} from '@expo/vector-icons';
+
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function Home(){
+    return(
+        <Tab.Navigator
+            screenOptions={({route})=>({
+                tabBarActiveTintColor: 'blue',
+                tabBarInactiveTintColor: 'gray',
+                tabBarIcon: ({color, size})=>{
+                    const iconName =
+                        (route.name === 'Posts' && 'feed') ||
+                        (route.name === 'PostForm' && 'plus-square') ||
+                        (route.name === 'Profile' && 'user');
+
+                    return <FontAwesome name={iconName} size={size} color={color}/>
+                }
+
+            })}>
+            <Stack.Screen
+                name='Posts'
+                component={Posts}
+                options={{headerShown:false}}
+            />
+            <Stack.Screen
+                name='Profile'
+                component={Profile}
+                options={{headerShown:false}}
+            />
+            <Stack.Screen
+                name='PostForm'
+                component={PostForm}
+                options={{
+                    headerShown:false,
+                    tabBarLabel : 'Add Post'}}
+            />
+        </Tab.Navigator>
+    )
+}
 
 export default function App() {
-
-    const Stack = createNativeStackNavigator();
   return (
       //
       //   {/*<Login/>*/}
@@ -17,11 +60,34 @@ export default function App() {
       //
       <AppContext>
             <NavigationContainer>
-                <StatusBar style='auto'/>
-                <Stack.Navigator initialRuteName='Posts'>
-                    <Stack.Screen name='Posts' component={Posts}/>
+                <StatusBar style='inverted'/>
+                <Stack.Navigator initialRouteName='Home'>
+                    {/*<Stack.Screen name='Posts' component={Posts}/>*/}
                     <Stack.Screen name='PostDetail' component={PostDetail}/>
-                    <Stack.Screen name='Login' component={Login}/>
+                    {/*<Stack.Screen name='Profile' component={Profile} />*/}
+                    <Stack.Screen
+                        name='Login'
+                        component={Login}
+                        options={{
+                            headerStyle:{
+                                backgroundColor:'lightgrey',
+                            },
+                            headerTintColor:'gray',
+                            headerTitleStyle:{
+                                fontWeight:'bold',
+                                color:'#76BA99'
+                            }
+                        }}
+                    />
+                    {/*<Stack.Screen name='PostForm' component={PostForm}/>*/}
+                    <Stack.Screen
+                        name='Home'
+                        component={Home}
+                        options={({route})=>({
+                            headerTitle:
+                            getFocusedRouteNameFromRoute(route)
+                        })}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
       </AppContext>
